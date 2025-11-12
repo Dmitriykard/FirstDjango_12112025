@@ -21,11 +21,11 @@ def home(request)-> HttpResponse:
 
 def about(request):
     author = {
-        "name": "Иван",
-        "middle_name": "Петрович",
-        "last_name": "Иванов",
-        "phone": "8-923-600-01-02",
-        "email": "vasya@mail.ru",
+        "name": "Николай",
+        "middle_name": "Иванович",
+        "last_name": "Сидоров",
+        "phone": "8-914-800-20-30",
+        "email": "kolya_sidr@mail.ru",
     } 
     context = {
         'author': author,
@@ -36,14 +36,11 @@ def get_item(request, item_id: int):
     """По указанному id возвращает элемент из списка"""
     for item in items:
         if item["id"] == item_id:
-            result = f"""
-            <h2> Имя: {item["name"]} </h2>
-            <p> Количество: {item["quantity"]} </p>
-            <p> <a href='/items'> Назад к списку товаров </a></p> 
-            """
-            return HttpResponse(result)
-    
-    return HttpResponseNotFound(f'Item with id={item_id} not found')
+            context = {
+                "item": item
+            }
+            return render(request, "item_page.html", context)
+    return render(request, "errors.html", {'errors': [f'Item with id={item_id} not found']})
 
 def get_items(request):
     context = {"items": items}

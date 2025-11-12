@@ -6,7 +6,19 @@
     <title>Items page</title>
 </head>
 <body>
-    <h1></h1>
-    
+    <header>
+        / <a href="/">Home</a> / <a href="/about">About</a> / <a href="/items">Items</a>
+    </header>
+
+    <h2> Имя: {{ item.name }} </h2>
+    {% if item.quantity == 0 %}
+        <p> Количество: товар отсутствует.</p> 
+    {% else %}
+        <p> Количество: {{ item.quantity }} </p>
+    {% endif %}
+    <br>
+    <hr>
+    <p> <a href='/items'> Назад к списку товаров </a></p> 
+            
 </body>
 </html>
