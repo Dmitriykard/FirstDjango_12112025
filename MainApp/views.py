@@ -2,13 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound
 
 # Create your views here.
-author = {
-    "Имя": "Николай",
-    "Отчество": "Петрович",
-    "Фамилия": "Сидоров",
-    "телефон": "8-914-544-20-30",
-    "email": "kolay_sidor12@mail.ru"
-}
+
 
 items = [
     {"id": 1, "name": "Кроссовки abibas", "quantity": 5},
@@ -26,14 +20,17 @@ def home(request)-> HttpResponse:
     return render(request, "index.html", context)
 
 def about(request):
-    text = f"""
-        Имя: {author["Имя"]}<br>
-        Отчество: {author['Отчество']}<br>
-        Фамилия: {author['Фамилия']}<br>
-        телефон: {author['телефон']}<br>
-        email: {author['email']}<br>
-        """
-    return HttpResponse(text)
+    author = {
+        "name": "Иван",
+        "middle_name": "Петрович",
+        "last_name": "Иванов",
+        "phone": "8-923-600-01-02",
+        "email": "vasya@mail.ru",
+    } 
+    context = {
+        'author': author,
+    }
+    return render(request, "about.html", context)
 
 def get_item(request, item_id: int):
     """По указанному id возвращает элемент из списка"""
