@@ -1,74 +1,51 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 
-# Авторские данные
+# Create your views here.
 author = {
-    'first_name': 'Николай',
-    'middle_name': 'Петрович',
-    'last_name': 'Сидоров',
-    'phone': '8-914-544-20-30',
-    'email': 'kolay_sidor12@mail.ru'
+    "Имя": "Николай",
+    "Отчество": "Петрович",
+    "Фамилия": "Сидоров",
+    "телефон": "8-914-544-20-30",
+    "email": "kolay_sidor12@mail.ru"
 }
 
-# Список товаров
 items = [
-    {"id": 1, "name": "Кроссовки abibas", "quantity": 10},
-    {"id": 2, "name": "Куртка кожаная", "quantity": 5},
-    {"id": 3, "name": "Coca-cola 1 литр", "quantity": 15},
-    {"id": 4, "name": "Картофель фри", "quantity": 20},
-    {"id": 5, "name": "Кепка", "quantity": 8}
+    {"id": 1, "name": "Кроссовки abibas", "quantity": 5},
+    {"id": 2, "name": "Куртка кожаная", "quantity": 2},
+    {"id": 5, "name": "Coca-cola 1 литр", "quantity": 12},
+    {"id": 7, "name": "Картофель фри", "quantity": 0},
+    {"id": 8, "name": "Кепка", "quantity": 124}
 ]
 
-# Главная страница
 def home(request):
     text = f"""
     <h1>Изучаем django</h1>
     <strong>Автор</strong>: <i>Сидоров Н.П.</i>
-    <br><br>
-    <a href="/about/">Обо мне</a> | 
-    <a href="/items/">Список товаров</a>
     """
     return HttpResponse(text)
 
-# Обо мне
 def about(request):
-    html_response = f"""
-    <h2>Обо мне:</h2>
-    Имя: {author['first_name']}<br/>
-    Отчество: {author['middle_name']}<br/>
-    Фамилия: {author['last_name']}<br/>
-    Телефон: {author['phone']}<br/>
-    Email: {author['email']}<br/><br/>
-    <a href="/">На главную</a> | 
-    <a href="/items/">Список товаров</a>
-    """
-    return HttpResponse(html_response)
+    text = f"""
+        Имя: {author["Имя"]}<br>
+        Отчество: {author['Отчество']}<br>
+        Фамилия: {author['Фамилия']}<br>
+        телефон: {author['телефон']}<br>
+        email: {author['email']}<br>
+        """
+    return HttpResponse(text)
 
-# ID товара
-def item_detail(request, item_id):
-    found_item = None
+def get_item(request, item_id:int):
+    """По указанному id возвращает элемент из списка"""
     for item in items:
-        if item["id"] == int(item_id):
-            found_item = item
-            break
+        if item["id"] == item_id:
+            result = f"""
+            <h2> Имя: {item["name"]} </h2>
+            <p> Количество: {item["quantity"]} </p>
+            """
+            return HttpResponse(result)
     
-    if found_item is not None:
-        return HttpResponse(
-            f"<h1>{found_item['name']}</h1>"
-            f"<p>Количество: {found_item['quantity']} шт.</p>"
-            f"<p><a href='/items/'>Назад к списку товаров</a></p>"
-        )
-    else:
-        return HttpResponse(
-            f"<h3>Товар с id={item_id} не найден</h3>"
-            f"<p><a href='/items/'>Назад к списку товаров</a></p>"
-        )
-
-# Список всех товаров
-def all_items(request):
-    response_html = "<h1>Список товаров</h1><ol>"
-    for item in items:
-        response_html += f"<li><a href='/item/{item['id']}/'>{item['name']}</a> (в наличии: {item['quantity']} шт.)</li>"
-    response_html += "</ol>"
-    response_html += "<br/><a href='/'>На главную</a> | <a href='/about/'>Обо мне</a>"
-    return HttpResponse(response_html)
+    return HttpResponseNotFound(f'Item with id={item_id} not found')
+    
+    
+    
