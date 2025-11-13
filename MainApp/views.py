@@ -33,7 +33,7 @@ def about(request):
     return render(request, "about.html", context)
 
 def get_item(request, item_id: int):
-    """По указанному id возвращает элемент из списка"""
+    """TODO: get item by id from db."""
     for item in items:
         if item["id"] == item_id:
             context = {
@@ -43,6 +43,7 @@ def get_item(request, item_id: int):
     return render(request, "errors.html", {'errors': [f'Item with id={item_id} not found']})
 
 def get_items(request):
+    """ TODO: get all items from db."""
     context = {"items": items}
     return render(request, "items_list.html", context)
 
