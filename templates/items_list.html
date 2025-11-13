@@ -63,7 +63,7 @@
         {% for  item in  items %} 
             <div class="item">
                 <a href='/item/{{ item.id }}'> 
-                    <p class="item_name">{{ item.name }} </p>
+                    <p class="item_name">{{ item.name | capfirst }} </p>
                     <p>Описание товара:</p>
                     <p>{{ item.description }}</p>
                 </a> 
