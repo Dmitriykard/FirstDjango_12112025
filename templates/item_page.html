@@ -1,11 +1,15 @@
 {% extends "base.html" %}
 
-{% block title> %} Item page {% endblock  %}
+{% load static %}
+
+{% block title %} Item page {% endblock  %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'MainApp/color.css' %}">
+{% endblock %}
 
 {% block content %} 
     {{ block.super }}
-
-    <img width="50px" src="{% static "images/django.svg" %}" alt="my_image">
 
     <h2> Имя: {{ item.name | capfirst }} </h2>
     
@@ -18,8 +22,16 @@
     <div>
         <p>Описание {{ item.description }}</p>
     </div>
-    <br>
-    <hr>
-    
+
+    <h3> Цвета </h3>
+    <ul class='ul_no_mark'>
+    {% for color in colors %}
+        <li> 
+            <span class="color-box" style='background-color: {{ color.name }};'></span> {{ color.name }}   
+        </li>
+    {% empty %}
+        Информация по цветам отсутствует.
+    {% endfor %}
+    </ul>
 {% endblock %}
             

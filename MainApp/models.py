@@ -6,7 +6,7 @@ class Color(models.Model):
    name = models.CharField(max_length=32)
 
    def __repr__(self):
-       return f'Color ({self.name})'
+       return f'Color({self.name})'
 
 
 class Item(models.Model):
