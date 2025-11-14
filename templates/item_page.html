@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Items page</title>
-</head>
-<body>
-    <header>
-        / <a href="/">Home</a> / <a href="/about">About</a> / <a href="/items">Items</a>
-    </header>
+{% extends "base.html" %}
+
+{% block title> %} Item page {% endblock  %}
+
+{% block content %} 
+    {{ block.super }}
+
+    <img width="50px" src="{% static "images/django.svg" %}" alt="my_image">
 
     <h2> Имя: {{ item.name | capfirst }} </h2>
     
@@ -23,7 +20,6 @@
     </div>
     <br>
     <hr>
-    <p> <a href='/items'> Назад к списку товаров </a></p> 
+    
+{% endblock %}
             
-</body>
-</html>
