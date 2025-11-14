@@ -12,7 +12,7 @@
     "model": "MainApp.item",
     "pk": 2,
     "fields": {
-        "name": "Куртка кожанная",
+        "name": "Куртка кожаная",
         "brand": "nuke",
         "count": 2
     }
